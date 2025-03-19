@@ -64,13 +64,13 @@ public class UserController {
 
     //get all users
     @GetMapping
-    public ResponseEntity<PageableResponse> getAllUsers(
+    public ResponseEntity<PageableResponse<UserDto>> getAllUsers(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "20", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "name", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        PageableResponse userDtos = userService.getAllUsers(pageNumber, pageSize, sortBy, sortDir);
+        PageableResponse<UserDto> userDtos = userService.getAllUsers(pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
