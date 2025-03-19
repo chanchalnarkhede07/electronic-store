@@ -9,12 +9,18 @@ import com.golu.electronic.store.repositories.CategoryRepository;
 import com.golu.electronic.store.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
@@ -25,6 +31,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Value("${category.profile.path}")
+    private String categoryFileUploadPath;
 
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {
@@ -47,6 +56,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategoryById(String id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+
+        //delete user image
+        String fullPath = categoryFileUploadPath + category.getCoverImage();
+
+        try {
+            Path path = Paths.get(fullPath);
+            Files.delete(path);
+        } catch (NoSuchFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         categoryRepository.delete(category);
     }
 

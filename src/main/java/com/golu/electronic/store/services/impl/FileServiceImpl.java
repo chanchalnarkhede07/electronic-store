@@ -22,10 +22,10 @@ public class FileServiceImpl implements FileService {
 
         if (extension.equalsIgnoreCase(".png") ||
                 extension.equalsIgnoreCase(".jpg") ||
-                extension.equalsIgnoreCase(".jpeg")) {
+                extension.equalsIgnoreCase(".jpeg")
+        ) {
 
             //save file
-
             File folder = new File(path);
             if (!folder.exists()) {
                 //create the folder
