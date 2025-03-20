@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Value("${category.profile.path}")
+    @Value("${category.image.path}")
     private String categoryFileUploadPath;
 
     @Override

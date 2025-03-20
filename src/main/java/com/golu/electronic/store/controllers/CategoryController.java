@@ -30,7 +30,7 @@ public class CategoryController {
     @Autowired
     private FileService fileService;
 
-    @Value("${category.profile.path}")
+    @Value("${category.image.path}")
     private String categoryFileUploadPath;
 
 
