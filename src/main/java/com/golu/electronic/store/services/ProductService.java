@@ -27,4 +27,13 @@ public interface ProductService {
 
     //get live
     PageableResponse<ProductDto> findByLiveTrue(int pageNo, int pageSize, String sortBy, String sortOrder);
+
+    //create product with category
+    ProductDto createProductWithCategory(ProductDto productDto, String categoryId);
+
+    //update product with category
+    ProductDto updateProductWithCategory(String productId, String categoryId);
+
+    PageableResponse<ProductDto> getAllProductsOfCategory(String categoryId, int pageNo, int pageSize, String sortBy, String sortOrder);
+
 }

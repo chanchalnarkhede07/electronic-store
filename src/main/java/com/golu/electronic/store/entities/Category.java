@@ -1,10 +1,10 @@
 package com.golu.electronic.store.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +23,10 @@ public class Category {
     @Column(name = "category_desc", length = 100)
     private String description;
     private String coverImage;
+
+    //Lazy means not load all products when category fetch
+    //cascade means change products also when category change
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> products= new ArrayList<>();
 
 }

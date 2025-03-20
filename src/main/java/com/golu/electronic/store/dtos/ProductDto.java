@@ -1,7 +1,5 @@
 package com.golu.electronic.store.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import lombok.*;
 
 import java.util.Date;
@@ -23,4 +21,5 @@ public class ProductDto {
     private boolean stock;
     private Date addedDate;
     private String productImageName;
+    private CategoryDto category;
 }
