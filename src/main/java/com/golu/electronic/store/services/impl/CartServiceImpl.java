@@ -45,7 +45,6 @@ public class CartServiceImpl implements CartService {
     public CartDto addItemToCart(String userId, AddItemToCartRequest request) {
         String productId = request.getProductId();
         int quantity = request.getQuantity();
-
         //fetch product from productid
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("product not found"));
@@ -56,7 +55,6 @@ public class CartServiceImpl implements CartService {
         Cart cart = null;
         try {
             cart = cartRepository.findByUser(user).get();
-
         } catch (NoSuchElementException e) {
             cart = new Cart();
             cart.setId(UUID.randomUUID().toString());
@@ -68,7 +66,6 @@ public class CartServiceImpl implements CartService {
         List<CartItem> cartItems = cart.getCartItems();
         AtomicReference<Boolean> updated = new AtomicReference<>(false);
         cartItems.stream().map(item -> {
-
             if (item.getProduct().getProductId().equals(productId)) {
                 //item already present in cart
                 item.setQuantity(quantity);
@@ -79,7 +76,7 @@ public class CartServiceImpl implements CartService {
         }).toList();
 
         cart.setCartItems(cartItems);
-        //else create new and add cartitem
+        //else create new and add cartItem
         //create Cart items
         if (!updated.get()) {
             CartItem cartItem = CartItem.builder()
@@ -92,7 +89,6 @@ public class CartServiceImpl implements CartService {
         }
         cart.setUser(user);
         Cart savedCart = cartRepository.save(cart);
-
         return modelMapper.map(savedCart, CartDto.class);
     }
 
